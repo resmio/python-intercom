@@ -1,37 +1,11 @@
 # -*- coding: utf-8 -*-
 
-import json
 import os
 
 from mock import Mock
 
 DIRPATH = os.path.dirname(__file__)
 FIXTURES = os.path.join(DIRPATH, 'fixtures')
-
-
-def create_response(status, fixture=None):
-    def request(*args, **kwargs):
-        response = Mock()
-        response.status_code = status
-        if fixture:
-            fixture_path = os.path.join(FIXTURES, fixture)
-            response.content = open(fixture_path).read()
-        return response
-    return request
-
-
-def local_response(**params):
-    def _call(*args, **kwargs):
-        response = Mock()
-        reply = {}
-        for name, value in list(kwargs.items()):
-            reply[name] = value
-        for name, value in list(params.items()):
-            reply[name] = value
-        response.content = json.dumps(reply)
-        response.status_code = 200
-        return response
-    return _call
 
 
 def mock_response(content, status_code=200, encoding='utf-8', headers=None):
@@ -42,7 +16,8 @@ def mock_response(content, status_code=200, encoding='utf-8', headers=None):
             'x-ratelimit-reset': 1427932858
         }
     return Mock(
-        content=content, status_code=status_code, encoding=encoding, headers=headers)
+        content=content, status_code=status_code, encoding=encoding,
+        headers=headers)
 
 
 def get_user(email="bob@example.com", name="Joe Schmoe"):
@@ -54,7 +29,7 @@ def get_user(email="bob@example.com", name="Joe Schmoe"):
         "name": name,
         "avatar": {
             "type": "avatar",
-            "image_url": "https://graph.facebook.com/1/picture?width=24&height=24"
+            "image_url": "https://graph.facebook.com/1/picture?width=24&height=24"  # noqa
         },
         "app_id": "the-app-id",
         "created_at": 1323422442,
@@ -88,7 +63,7 @@ def get_user(email="bob@example.com", name="Joe Schmoe"):
         "created_at": 1401970114,
         "remote_created_at": 1393613864,
         "updated_at": 1401970114,
-        "user_agent_data": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_3) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.56 Safari/535.11",
+        "user_agent_data": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_3) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.56 Safari/535.11",  # noqa
         "social_profiles": {
             "type": "social_profile.list",
             "social_profiles": [
@@ -154,7 +129,7 @@ def page_of_users(include_next_link=False):
         "total_count": 314
     }
     if include_next_link:
-        page["pages"]["next"] = "https://api.intercom.io/users?per_page=50&page=2"
+        page["pages"]["next"] = "https://api.intercom.io/users?per_page=50&page=2"  # noqa
     return page
 
 test_tag = {
@@ -173,7 +148,7 @@ test_subscription = {
     "app_id": "3qmk5gyg",
     "url": "http://example.com",
     "self": "https://api.intercom.io/subscriptions/nsub_123456789",
-    "topics": ["user.created", "conversation.user.replied", "conversation.admin.replied"],
+    "topics": ["user.created", "conversation.user.replied", "conversation.admin.replied"],  # noqa
     "active": True,
     "metadata": {},
     "hub_secret": None,
@@ -284,7 +259,7 @@ test_conversation_notification = {
             "open": None,
             "read": True,
             "links": {
-                "conversation_web": "https://app.intercom.io/a/apps/aaaaaa/inbox/all/conversations/123456789"
+                "conversation_web": "https://app.intercom.io/a/apps/aaaaaa/inbox/all/conversations/123456789"  # noqa
             }
         }
     },
