@@ -83,7 +83,7 @@ class RequestTest(unittest.TestCase):
             mock_method.return_value = resp
             try:
                 Intercom.get('/users')
-                self.fail('UnexpectedError not raised.')
+                self.fail('UnexpectedError not raised.')  # pragma: no cover
             except (UnexpectedError) as err:
                 ok_("The error of type 'hopper' is not recognized" in err.message)  # noqa
                 eq_(err.context['http_code'], 200)
@@ -105,7 +105,7 @@ class RequestTest(unittest.TestCase):
             mock_method.return_value = resp
             try:
                 Intercom.get('/users')
-                self.fail('UnexpectedError not raised.')
+                self.fail('UnexpectedError not raised.')  # pragma: no cover
             except (UnexpectedError) as err:
                 ok_("An unexpected error occured." in err.message)
                 eq_(err.context['application_error_code'], None)
